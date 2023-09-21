@@ -1,5 +1,5 @@
 """
-    Setup file for daconnect-zip.
+    Setup file for data-agent-zip.
     Use setup.cfg to configure your project.
 
     This file was generated with PyScaffold 4.5.

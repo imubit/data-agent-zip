@@ -27,7 +27,7 @@
 
 # Contributing
 
-Welcome to `daconnect-zip` contributor's guide.
+Welcome to `data-agent-zip` contributor's guide.
 
 This document focuses on getting any potential contributor familiarized with
 the development processes, but [other kinds of contributions] are also appreciated.
@@ -43,7 +43,7 @@ behavior guidelines.
 
 ## Issue Reports
 
-If you experience bugs or general issues with `daconnect-zip`, please have a look
+If you experience bugs or general issues with `data-agent-zip`, please have a look
 on the [issue tracker].
 If you don't see anything useful there, please feel free to fire an issue report.
 
@@ -61,10 +61,10 @@ you help us to identify the root cause of the issue.
 
 ## Documentation Improvements
 
-You can help improve `daconnect-zip` docs by making them more readable and coherent, or
+You can help improve `data-agent-zip` docs by making them more readable and coherent, or
 by adding missing information and correcting mistakes.
 
-`daconnect-zip` documentation uses [Sphinx] as its main documentation compiler.
+`data-agent-zip` documentation uses [Sphinx] as its main documentation compiler.
 This means that the docs are kept in the same repository as the project code, and
 that any documentation update is done in the same way was a code contribution.
 
@@ -77,7 +77,7 @@ that any documentation update is done in the same way was a code contribution.
 
    :::{tip}
       Please notice that the [GitHub web interface] provides a quick way of
-      propose changes in `daconnect-zip`'s files. While this mechanism can
+      propose changes in `data-agent-zip`'s files. While this mechanism can
       be tricky for normal code contributions, it works perfectly fine for
       contributing to the docs, and can be quite handy.
 
@@ -134,8 +134,8 @@ source <PATH TO VENV>/bin/activate
 or [Miniconda]:
 
 ```
-conda create -n daconnect-zip python=3 six virtualenv pytest pytest-cov
-conda activate daconnect-zip
+conda create -n data-agent-zip python=3 six virtualenv pytest pytest-cov
+conda activate data-agent-zip
 ```
 
 ### Clone the repository
@@ -148,8 +148,8 @@ conda activate daconnect-zip
 3. Clone this copy to your local disk:
 
    ```
-   git clone git@github.com:YourLogin/daconnect-zip.git
-   cd daconnect-zip
+   git clone git@github.com:YourLogin/data-agent-zip.git
+   cd data-agent-zip
    ```
 
 4. You should run:
@@ -170,7 +170,7 @@ conda activate daconnect-zip
    pre-commit install
    ```
 
-   `daconnect-zip` comes with a lot of hooks configured to automatically help the
+   `data-agent-zip` comes with a lot of hooks configured to automatically help the
    developer to check the code being written.
 
 ### Implement your changes
@@ -314,7 +314,7 @@ package:
 
 If you are part of the group of maintainers and have correct user permissions
 on [PyPI], the following steps can be used to release a new version for
-`daconnect-zip`:
+`data-agent-zip`:
 
 1. Make sure all unit tests are successful.
 2. Tag the current commit on the main branch with a release tag, e.g., `v1.2.3`.
@@ -367,5 +367,5 @@ on [PyPI], the following steps can be used to release a new version for
 ```{todo} Please review and change the following definitions:
 ```
 
-[repository]: https://github.com/<USERNAME>/daconnect-zip
-[issue tracker]: https://github.com/<USERNAME>/daconnect-zip/issues
+[repository]: https://github.com/<USERNAME>/data-agent-zip
+[issue tracker]: https://github.com/<USERNAME>/data-agent-zip/issues
