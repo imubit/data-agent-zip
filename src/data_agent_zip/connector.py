@@ -49,7 +49,7 @@ class ZipConnector(AbstractConnector):
         ("LastValue", {"Type": "int", "Name": "Last Value"}),
         ("TotalRows", {"Type": "int", "Name": "Total Rows"}),
         ("FileSize", {"Type": "int", "Name": "File Size"}),
-        ]
+    ]
 
     TIMESTAMP_COL = "timestamp"
     SYSTEM_COLUMNS = [TIMESTAMP_COL]

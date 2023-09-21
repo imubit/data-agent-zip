@@ -1,5 +1,5 @@
 """
-    Dummy conftest.py for daconnect_zip.
+    Dummy conftest.py for data_agent_zip.
 
     If you don't know what this is for, just leave it empty.
     Read more about conftest.py under:
@@ -9,7 +9,7 @@
 
 import pytest
 
-from daconnect_zip.connector import ZipConnector
+from data_agent_zip.connector import ZipConnector
 
 
 @pytest.fixture

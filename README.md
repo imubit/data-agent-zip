@@ -1,18 +1,18 @@
 <!-- These are examples of badges you might want to add to your README:
      please update the URLs accordingly
 
-[![Built Status](https://api.cirrus-ci.com/github/<USER>/daconnect-zip.svg?branch=main)](https://cirrus-ci.com/github/<USER>/daconnect-zip)
-[![ReadTheDocs](https://readthedocs.org/projects/daconnect-zip/badge/?version=latest)](https://daconnect-zip.readthedocs.io/en/stable/)
-[![Coveralls](https://img.shields.io/coveralls/github/<USER>/daconnect-zip/main.svg)](https://coveralls.io/r/<USER>/daconnect-zip)
-[![PyPI-Server](https://img.shields.io/pypi/v/daconnect-zip.svg)](https://pypi.org/project/daconnect-zip/)
-[![Conda-Forge](https://img.shields.io/conda/vn/conda-forge/daconnect-zip.svg)](https://anaconda.org/conda-forge/daconnect-zip)
-[![Monthly Downloads](https://pepy.tech/badge/daconnect-zip/month)](https://pepy.tech/project/daconnect-zip)
-[![Twitter](https://img.shields.io/twitter/url/http/shields.io.svg?style=social&label=Twitter)](https://twitter.com/daconnect-zip)
+[![Built Status](https://api.cirrus-ci.com/github/<USER>/data-agent-zip.svg?branch=main)](https://cirrus-ci.com/github/<USER>/data-agent-zip)
+[![ReadTheDocs](https://readthedocs.org/projects/data-agent-zip/badge/?version=latest)](https://data-agent-zip.readthedocs.io/en/stable/)
+[![Coveralls](https://img.shields.io/coveralls/github/<USER>/data-agent-zip/main.svg)](https://coveralls.io/r/<USER>/data-agent-zip)
+[![PyPI-Server](https://img.shields.io/pypi/v/data-agent-zip.svg)](https://pypi.org/project/data-agent-zip/)
+[![Conda-Forge](https://img.shields.io/conda/vn/conda-forge/data-agent-zip.svg)](https://anaconda.org/conda-forge/data-agent-zip)
+[![Monthly Downloads](https://pepy.tech/badge/data-agent-zip/month)](https://pepy.tech/project/data-agent-zip)
+[![Twitter](https://img.shields.io/twitter/url/http/shields.io.svg?style=social&label=Twitter)](https://twitter.com/data-agent-zip)
 -->
 
 [![Project generated with PyScaffold](https://img.shields.io/badge/-PyScaffold-005CA0?logo=pyscaffold)](https://pyscaffold.org/)
 
-# daconnect-zip
+# data-agent-zip
 
 > Imubit Agent connector for ZIP files
 
