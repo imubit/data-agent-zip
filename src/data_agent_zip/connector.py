@@ -56,12 +56,14 @@ class ZipConnector(AbstractConnector):
     GROUP_DELIMITER = "::"
     DATA_FOLDER = "data"
     META_FOLDER = "meta"
+    LOG_FILE_PATH = "extraction.log"
 
     def __init__(self, conn_name="zip_archive", zipfile_path=None):
         super(ZipConnector, self).__init__(conn_name)
 
         self._zipfile_path = zipfile_path
         self._zipfile = None
+        self._log_file = None
         if self._zipfile_path is None:
             self._zipfile_path = os.path.join(
                 tempfile.gettempdir(), f"{os.urandom(10).hex()}.zip"
@@ -90,6 +92,14 @@ class ZipConnector(AbstractConnector):
             self._zipfile_path, mode="a", compression=zipfile.ZIP_DEFLATED
         )
 
+        try:
+            self._log_fileinfo = self._zipfile.getinfo(self.LOG_FILE_PATH)
+        except KeyError:
+            self._log_fileinfo = None
+
+        if not self._log_fileinfo:
+            self._log_fileinfo = self._zipfile.ZipInfo(self.LOG_FILE_PATH)
+
         # Not available until Python 3.11
         # self._zipfile.mkdir(self.DATA_FOLDER)
         # self._zipfile.mkdir(self.META_FOLDER)
@@ -97,6 +107,7 @@ class ZipConnector(AbstractConnector):
     @active_connection
     def disconnect(self):
         if self._zipfile:
+            self._log_fileinfo = None
             self._zipfile.close()
             self._zipfile = None
 
@@ -207,7 +218,7 @@ class ZipConnector(AbstractConnector):
 
     @active_connection
     def read_tag_attributes(self, tags: list, attributes: list = None):
-        pass
+        raise RuntimeError("unsupported")
 
     @active_connection
     def write_tag_attributes(self, tags: dict):
@@ -265,12 +276,12 @@ class ZipConnector(AbstractConnector):
 
     @active_connection
     def write_tag_values(self, tags: dict, wait_for_result: bool = True, **kwargs):
-        pass
+        raise RuntimeError("unsupported")
 
     @active_connection
     @csv_file_extension_validate
     def write_tag_values_period(self, group_name, df, attributes=None):
-        pass
+        raise RuntimeError("unsupported")
 
     @active_connection
     def list_groups(self) -> list:
@@ -280,12 +291,12 @@ class ZipConnector(AbstractConnector):
 
     @csv_file_extension_validate
     def group_period(self, group_name):
-        pass
+        raise RuntimeError("unsupported")
 
     @active_connection
     @csv_file_extension_validate
     def register_group(self, group_name: str, tags: list, refresh_rate_ms: bool = 1000):
-        pass
+        raise RuntimeError("unsupported")
 
     @active_connection
     @csv_file_extension_validate
@@ -305,8 +316,7 @@ class ZipConnector(AbstractConnector):
     def write_group_values(
         self, group_name: str, tags: dict, wait_for_result: bool = True, **kwargs
     ) -> dict:
-        # df.to_csv(os.path.join(self._path, )
-        pass
+        raise RuntimeError("unsupported")
 
     @active_connection
     @csv_file_extension_validate
@@ -371,3 +381,7 @@ class ZipConnector(AbstractConnector):
                 groups[tag_split[0]].append(tag_short_name)
 
         return groups
+
+    @active_connection
+    def log(self, level, msg, *args, **kwargs):
+        self._zipfile.writestr(self._log_fileinfo, f"{level}  {msg}")
