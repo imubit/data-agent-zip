@@ -9,6 +9,7 @@ from typing import Union
 
 import pandas as pd
 from data_agent.abstract_connector import (
+    STANDARD_ATTRIBUTES,
     AbstractConnector,
     SupportedOperation,
     active_connection,
@@ -42,7 +43,9 @@ class ZipConnector(AbstractConnector):
         SupportedOperation.WRITE_TAG_META,
     ]
     DEFAULT_ATTRIBUTES = [
-        ("Name", {"Type": "str", "Name": "Tag"}),
+        ("Name", {"Type": "str", "Name": "Tag Name"}),
+        ("engunits", {"Type": "str", "Name": "Units"}),
+        ("descriptor", {"Type": "str", "Name": "Description"}),
         ("FirstTimestamp", {"Type": "str", "Name": "First Timestamp"}),
         ("FirstValue", {"Type": "int", "Name": "First Value"}),
         ("LastTimestamp", {"Type": "int", "Name": "Last Timestamp"}),
@@ -56,6 +59,7 @@ class ZipConnector(AbstractConnector):
     GROUP_DELIMITER = "::"
     DATA_FOLDER = "data"
     META_FOLDER = "meta"
+    TAGS_LIST_FILE = "tags_list.csv"
 
     def __init__(self, conn_name="zip_archive", zipfile_path=None):
         super(ZipConnector, self).__init__(conn_name)
@@ -66,9 +70,10 @@ class ZipConnector(AbstractConnector):
             self._zipfile_path = os.path.join(
                 tempfile.gettempdir(), f"{os.urandom(10).hex()}.zip"
             )
+        self._tags_list_file = None
 
         log.debug(f"ZIP file path - {self._zipfile_path}")
-        print(f"ZIP file path - {self._zipfile_path}")
+        # print(f"ZIP file path - {self._zipfile_path}")
 
     @staticmethod
     def list_connection_fields():
@@ -90,6 +95,9 @@ class ZipConnector(AbstractConnector):
             self._zipfile_path, mode="a", compression=zipfile.ZIP_DEFLATED
         )
 
+        # Start tags list df
+        self._tags_list_df = pd.DataFrame(columns=list(STANDARD_ATTRIBUTES.keys()))
+
         # Not available until Python 3.11
         # self._zipfile.mkdir(self.DATA_FOLDER)
         # self._zipfile.mkdir(self.META_FOLDER)
@@ -97,6 +105,16 @@ class ZipConnector(AbstractConnector):
     @active_connection
     def disconnect(self):
         if self._zipfile:
+            try:
+                tags_list_file = self._zipfile.getinfo(self.TAGS_LIST_FILE)
+            except KeyError:
+                tags_list_file = zipfile.ZipInfo(self.TAGS_LIST_FILE)
+
+            # Write tags list
+            self._zipfile.writestr(
+                tags_list_file, self._tags_list_df.to_csv(index=False)
+            )
+
             self._zipfile.close()
             self._zipfile = None
 
@@ -223,12 +241,22 @@ class ZipConnector(AbstractConnector):
             try:
                 zip_info = self._zipfile.getinfo(fqn)
             except KeyError:
-                zip_info = None
-
-            if not zip_info:
                 zip_info = zipfile.ZipInfo(fqn)
 
             self._zipfile.writestr(zip_info, df.to_csv())
+
+        # Add standard attrs to df
+        for tag in tags:
+            self._tags_list_df.loc[len(self._tags_list_df.index)] = [
+                tags[tag][a] if a in tags[tag] else None
+                for a in STANDARD_ATTRIBUTES.keys()
+            ]
+
+            # row = ','.join([tags[tag][a] if a in tags[tag] else '' for a in STANDARD_ATTRIBUTES.keys()])
+
+            # with self._zipfile.open(self.TAGS_LIST_FILE, "w") as fl:
+            #     fl.write(row.encode())
+            # self._zipfile.writestr(self._tags_list_file, df.to_csv(index=False))
 
     @active_connection
     def read_tag_values(self, tags: list):

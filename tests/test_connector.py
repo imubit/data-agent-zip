@@ -26,6 +26,7 @@ def test_sanity(zip_archive):
     zip_archive.write_group_values_period(group_name, df)
 
     tags = zip_archive.list_tags()
+
     assert tags[group_name]["Name"] == "test_group.csv"
     assert tags[group_name]["FileSize"] > 200000
     assert tags[group_name]["HasChildren"] is True
@@ -133,8 +134,12 @@ def test_append_similar(zip_archive):
 def test_write_tag_attributes(zip_archive):
     attr = {
         "tag1": {"Name": "Tag 1", "Type": "bool"},
-        "tag2": {"Name": "Tag 2", "Type": "int"},
-        "tag23": {"Name": "Tag 23", "Type": "double"},
+        "tag2": {"Name": "Tag 2", "Type": "int", "non_standard": 0},
+        "tag23": {
+            "Name": "Tag 23",
+            "Type": "double",
+            "Description": "Non interesting tag",
+        },
     }
 
     zip_archive.write_tag_attributes(attr)
