@@ -86,6 +86,10 @@ class ZipConnector(AbstractConnector):
             }
         }
 
+    @staticmethod
+    def target_info(target_ref):
+        return {}
+
     @property
     def connected(self):
         return self._zipfile is not None
