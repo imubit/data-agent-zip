@@ -73,7 +73,7 @@ class ZipConnector(AbstractConnector):
         self._tags_list_file = None
 
         log.debug(f"ZIP file path - {self._zipfile_path}")
-        # print(f"ZIP file path - {self._zipfile_path}")
+        print(f"ZIP file path - {self._zipfile_path}")
 
     @staticmethod
     def list_connection_fields():
@@ -307,7 +307,9 @@ class ZipConnector(AbstractConnector):
     @active_connection
     def list_groups(self) -> list:
         return [
-            os.path.basename(g) for g in self._zipfile.namelist() if g.endswith("csv")
+            os.path.basename(g)
+            for g in self._zipfile.namelist()
+            if g.endswith("csv") and os.path.dirname(g) == self.DATA_FOLDER
         ]
 
     @csv_file_extension_validate

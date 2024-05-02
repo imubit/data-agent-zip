@@ -31,6 +31,8 @@ def test_sanity(zip_archive):
     assert tags[group_name]["FileSize"] > 200000
     assert tags[group_name]["HasChildren"] is True
 
+    zip_archive.list_groups() == ["test_group.csv"]
+
     df1 = zip_archive.read_group_values_period(group_name)
     pd.testing.assert_frame_equal(df1, df, check_freq=False, check_dtype=False)
 
